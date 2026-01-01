@@ -31,7 +31,7 @@ const Navigation = () => {
   }, []);
 
   useEffect(() => {
-    const isDarkMode = localStorage.getItem('theme') === 'dark' || 
+    const isDarkMode = localStorage.getItem('theme') === 'dark' ||
       (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
     setIsDark(isDarkMode);
     document.documentElement.classList.toggle('dark', isDarkMode);
@@ -94,15 +94,14 @@ const Navigation = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'glass shadow-lg' : 'bg-transparent'
-      }`}
+      className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 pointer-events-auto ${isScrolled ? 'glass shadow-lg' : 'bg-transparent'
+        }`}
     >
       <div className="section-container">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a 
-            href="#home" 
+          <a
+            href="#home"
             className="text-xl md:text-2xl font-bold gradient-text"
             onClick={() => playSound('click')}
             onMouseEnter={handleLinkHover}
@@ -118,9 +117,8 @@ const Navigation = () => {
                 href={href}
                 onClick={() => playSound('click')}
                 onMouseEnter={handleLinkHover}
-                className={`nav-link font-medium ${
-                  activeSection === href.slice(1) ? 'text-primary active' : ''
-                }`}
+                className={`nav-link font-medium ${activeSection === href.slice(1) ? 'text-primary active' : ''
+                  }`}
               >
                 {t(labelKey)}
               </a>
@@ -191,8 +189,9 @@ const Navigation = () => {
                 setIsMobileMenuOpen(!isMobileMenuOpen);
               }}
               onMouseEnter={handleLinkHover}
-              className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors"
+              className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors relative z-50 pointer-events-auto"
               aria-label="Toggle menu"
+              type="button"
             >
               {isMobileMenuOpen ? (
                 <X className="w-6 h-6" />
@@ -203,34 +202,45 @@ const Navigation = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Overlay */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden overflow-hidden bg-background/95 backdrop-blur-md"
+              className="fixed inset-x-0 top-16 md:hidden bg-background/95 backdrop-blur-3xl border-b border-border/40 shadow-xl z-40 max-h-[calc(100vh-4rem)] overflow-y-auto"
             >
-              <div className="py-4 space-y-2">
+              <div className="flex flex-col p-4 gap-2">
                 {navLinks.map(({ href, labelKey }, index) => (
-                  <motion.a
+                  <motion.div
                     key={href}
-                    href={href}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    onClick={handleLinkClick}
-                    onMouseEnter={handleLinkHover}
-                    className={`block py-3 px-4 rounded-lg font-medium transition-colors ${
-                      activeSection === href.slice(1)
-                        ? 'bg-primary/10 text-primary'
-                        : 'hover:bg-muted'
-                    }`}
                   >
-                    {t(labelKey)}
-                  </motion.a>
+                    <a
+                      href={href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleLinkClick();
+                        const target = document.querySelector(href);
+                        if (target) {
+                          setTimeout(() => {
+                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          }, 100);
+                        }
+                      }}
+                      onMouseEnter={handleLinkHover}
+                      className={`block py-3 px-4 rounded-xl text-lg font-medium transition-all duration-200 ${activeSection === href.slice(1)
+                          ? 'bg-primary/10 text-primary translate-x-1'
+                          : 'hover:bg-muted hover:translate-x-1 text-muted-foreground hover:text-foreground'
+                        }`}
+                    >
+                      {t(labelKey)}
+                    </a>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>

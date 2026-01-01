@@ -42,7 +42,7 @@
     --gradient-hero: linear-gradient(135deg, hsl(217 91% 60% / 0.1) 0%, hsl(263 70% 50% / 0.1) 50%, hsl(160 84% 39% / 0.1) 100%);
     --gradient-card: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(210 40% 98%) 100%);
     --gradient-border: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(263 70% 50%) 50%, hsl(160 84% 39%) 100%);
-    
+
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 hsl(222 47% 11% / 0.05);
     --shadow-md: 0 4px 6px -1px hsl(222 47% 11% / 0.1), 0 2px 4px -2px hsl(222 47% 11% / 0.1);
@@ -112,10 +112,13 @@
   html {
     scroll-behavior: smooth;
     direction: rtl;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground font-cairo antialiased;
+    overflow-x: hidden;
+    width: 100%;
   }
 }
 
@@ -237,9 +240,12 @@
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-20px);
   }
@@ -249,9 +255,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
