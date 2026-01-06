@@ -31,6 +31,7 @@ export const projects: Project[] = [
     technologies: ['Laravel', 'MySQL', 'Bootstrap', 'Payment Gateway', 'Admin Dashboard'],
     type: 'ecommerce',
     image: sheikhHerbsImage,
+    liveUrl: 'https://sheikel3ashabeen.com/home',
   },
   {
     id: 'valdor-store',
@@ -39,6 +40,7 @@ export const projects: Project[] = [
     technologies: ['Laravel', 'MySQL', 'Vue.js', 'Shipping APIs', 'Admin Panel'],
     type: 'ecommerce',
     image: valdorStoreImage,
+    liveUrl: 'https://valdor.me/home',
   },
   {
     id: 'broz-platform',
@@ -67,7 +69,7 @@ export const skills: Skill[] = [
   { name: 'Vue.js', level: 75, category: 'frontend' },
   { name: 'HTML5/CSS3', level: 98, category: 'frontend' },
   { name: 'Framer Motion', level: 85, category: 'frontend' },
-  
+
   // Backend
   { name: 'Laravel', level: 95, category: 'backend' },
   { name: 'Node.js', level: 85, category: 'backend' },
@@ -75,14 +77,14 @@ export const skills: Skill[] = [
   { name: 'PHP', level: 90, category: 'backend' },
   { name: 'RESTful APIs', level: 95, category: 'backend' },
   { name: 'GraphQL', level: 70, category: 'backend' },
-  
+
   // Mobile
   { name: 'Flutter', level: 95, category: 'mobile' },
   { name: 'Dart', level: 90, category: 'mobile' },
   { name: 'Android', level: 85, category: 'mobile' },
   { name: 'iOS', level: 85, category: 'mobile' },
   { name: 'React Native', level: 75, category: 'mobile' },
-  
+
   // Database & Tools
   { name: 'PostgreSQL', level: 90, category: 'database' },
   { name: 'MySQL', level: 92, category: 'database' },

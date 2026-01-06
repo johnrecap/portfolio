@@ -51,21 +51,37 @@ const ProjectCard = ({ project, index, language }: { project: Project; index: nu
     >
       {/* Project Image */}
       <div className="relative h-48 overflow-hidden">
-        <img 
-          src={project.image} 
+        <img
+          src={project.image}
           alt={title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        
+
         {/* Hover Overlay */}
         <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-foreground/20 backdrop-blur-sm">
-          <button className="p-3 rounded-full bg-card/90 hover:bg-card transition-colors shadow-lg">
-            <ExternalLink className="w-5 h-5" />
-          </button>
-          <button className="p-3 rounded-full bg-card/90 hover:bg-card transition-colors shadow-lg">
-            <Github className="w-5 h-5" />
-          </button>
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 rounded-full bg-card/90 hover:bg-card transition-colors shadow-lg"
+              title="GitHub"
+            >
+              <Github className="w-5 h-5" />
+            </a>
+          )}
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 rounded-full bg-card/90 hover:bg-card transition-colors shadow-lg"
+              title={language === 'ar' ? 'زيارة الموقع' : 'Visit Website'}
+            >
+              <ExternalLink className="w-5 h-5" />
+            </a>
+          )}
         </div>
       </div>
 
@@ -83,9 +99,8 @@ const ProjectCard = ({ project, index, language }: { project: Project; index: nu
           {project.technologies.slice(0, 4).map((tech) => (
             <span
               key={tech}
-              className={`px-2 py-1 rounded-md text-xs font-medium ${
-                techColors[tech] || 'bg-muted text-muted-foreground'
-              }`}
+              className={`px-2 py-1 rounded-md text-xs font-medium ${techColors[tech] || 'bg-muted text-muted-foreground'
+                }`}
             >
               {tech}
             </span>
@@ -113,7 +128,7 @@ const Projects = () => {
     { key: 'educational', labelKey: 'projects.filter.educational' },
     { key: 'portfolio', labelKey: 'projects.filter.portfolio' },
   ];
-  
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
@@ -129,15 +144,15 @@ const Projects = () => {
   return (
     <section ref={sectionRef} id="projects" className="section-padding relative overflow-hidden">
       {/* Parallax Background Elements */}
-      <motion.div 
+      <motion.div
         style={{ y: y1 }}
-        className="absolute -top-32 -right-32 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10" 
+        className="absolute -top-32 -right-32 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10"
       />
-      <motion.div 
+      <motion.div
         style={{ y: y2 }}
-        className="absolute -bottom-32 -left-32 w-80 h-80 bg-secondary/10 rounded-full blur-3xl -z-10" 
+        className="absolute -bottom-32 -left-32 w-80 h-80 bg-secondary/10 rounded-full blur-3xl -z-10"
       />
-      
+
       <div className="section-container relative z-10">
         {/* Section Header */}
         <motion.div
@@ -169,11 +184,10 @@ const Projects = () => {
             <button
               key={key}
               onClick={() => setActiveFilter(key)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                activeFilter === key
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${activeFilter === key
                   ? 'bg-primary text-primary-foreground shadow-lg'
                   : 'bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground'
-              }`}
+                }`}
             >
               {t(labelKey)}
             </button>
