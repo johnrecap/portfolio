@@ -49,6 +49,7 @@ export const projects: Project[] = [
     technologies: ['Next.js', 'Laravel API', 'PostgreSQL', 'Stripe', 'Authentication'],
     type: 'educational',
     image: brozPlatformImage,
+    liveUrl: 'https://prominence.academy/',
   },
   {
     id: 'portfolio',
